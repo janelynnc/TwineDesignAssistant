@@ -4,7 +4,8 @@
 
 #storyEditView .passage {
 	position: absolute;
-	background: @color-paper;
+	//background: @color-paper;
+	background: #D0F0C0;
 	cursor: default;
 	font-size: 85%;
 	padding: @len-small;
@@ -44,7 +45,8 @@
 			flex-shrink: 1;
 			margin: @len-hairline;
 			border-radius: (@len-small * 0.75) / 2;
-			
+			background:lightsalmon;
+
 			& + div {
 				margin-top: 0;
 			}
@@ -74,10 +76,12 @@
 			}
 		}
 	}
+    
 
 	&.selected {
 		border: @len-hairline solid lighten(@color-link, 30%);
 		background: lighten(@color-link, 55%);
+		border-radius: 50%
 	}
 
 	&.highlighted {

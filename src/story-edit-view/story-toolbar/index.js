@@ -2,9 +2,10 @@
 
 const Vue = require('vue');
 const zoomMappings = require('../zoom-settings');
+const storyTab = require('./story-tab');
 const {playStory, testStory} = require('../../common/launch-story');
 const {updateStory} = require('../../data/actions/story');
-
+const {selectPassages} = require('../../data/actions/passage');
 require('./index.less');
 
 module.exports = Vue.extend({
@@ -25,6 +26,7 @@ module.exports = Vue.extend({
 	components: {
 		'story-menu': require('./story-menu'),
 		'story-search': require('./story-search')
+		
 	},
 
 	methods: {
@@ -42,12 +44,23 @@ module.exports = Vue.extend({
 
 		addPassage() {
 			this.$dispatch('passage-create');
+		},
+
+		addStoryWindow(){
+			new storyTab({
+				data: {
+					story: this.story,
+					store: this.$store,
+					parent: this
+				}
+			}).$mountTo(document.body);
 		}
 	},
 
 	vuex: {
 		actions: {
-			updateStory
+			updateStory,
+			selectPassages
 		}
 	}
 });

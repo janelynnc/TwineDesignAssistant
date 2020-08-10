@@ -1,0 +1,9 @@
+<side-modal id = "StoryWindowModal" class="editor" :origin="origin" :can-widen="true">
+	<div id="StoryWindow">
+		<button type="button" @click="showNew"> Draw a trapezoid </button>
+		<button type="button" @click="remove"> Remove a trapezoid </button>
+		<template v-for="shape in shapes" track-by="$index" transition="fade-in-out">
+			<div class="trapezoid "></div>
+		</template>
+	</div>
+</side-modal>
