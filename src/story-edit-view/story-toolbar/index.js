@@ -10,7 +10,9 @@ require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
-
+	data: () => ({
+		storyWindow: null
+	}),
 	props: {
 		story: {
 			type: Object,
@@ -47,13 +49,16 @@ module.exports = Vue.extend({
 		},
 
 		addStoryWindow(){
-			new storyTab({
-				data: {
-					story: this.story,
-					store: this.$store,
-					parent: this
-				}
-			}).$mountTo(document.body);
+			if(document.getElementById("StoryWindow") == null){
+				new storyTab({
+					data: {
+						store: this.$store,
+						storyId: this.story.id,
+						story: this.story,
+						parent: this
+					}
+				}).$mountTo(document.body);
+			}
 		}
 	},
 

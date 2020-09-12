@@ -44,7 +44,7 @@ module.exports = Vue.extend({
 		*/
 
 		links() {
-			return this.passages.reduce(
+			var links = this.passages.reduce(
 				(result, passage) => {
 					result[passage.name] = uniq(linkParser(passage.text, true));
 					return result;
@@ -52,6 +52,8 @@ module.exports = Vue.extend({
 
 				{}
 			);
+			console.log(links);
+			return links;
 		},
 
 		cssStyle() {

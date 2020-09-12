@@ -9,7 +9,7 @@ const { thenable } = require('../../vue/mixins/thenable');
 const { changeLinksInStory, updatePassage } = require('../../data/actions/passage');
 const { loadFormat } = require('../../data/actions/story-format');
 const { passageDefaults } = require('../../data/store/story');
-
+const storyWindow = require('../../story-edit-view/story-toolbar/story-tab');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
 require('../../codemirror/prefix-trigger');
@@ -31,7 +31,8 @@ module.exports = Vue.extend({
 		oldWindowTitle: '',
 		userPassageName: '',
 		saveError: '',
-		origin: null
+		origin: null,
+		storyEditView: null
 	}),
 
 	computed: {
@@ -79,6 +80,19 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
+		addStoryWindow(){
+			console.log(this.parentStory)
+			if(document.getElementById("StoryWindow") == null){
+				new storyWindow({
+					data: {
+						storyId: this.storyId,
+						store: this.$store,
+						story: this.parentStory,
+						parent: this.storyEditView
+					}
+				}).$mountTo(document.body);
+			}
+        },
 		autocomplete() {
 			this.$refs.codemirror.$cm.showHint({
 				hint: cm => {
@@ -246,7 +260,8 @@ module.exports = Vue.extend({
 	components: {
 		'code-mirror': require('../../vue/codemirror'),
 		'modal-dialog': require('../../ui/modal-dialog'),
-		'tag-editor': require('./tag-editor')
+		'tag-editor': require('./tag-editor'),
+		'passage-story-button': require('./passage-story-button')
 	},
 
 	vuex: {

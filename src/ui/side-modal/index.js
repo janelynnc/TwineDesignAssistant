@@ -118,6 +118,7 @@ const SideModal = module.exports = Vue.extend({
 	events: {
 		close(message) {
 			this[resolve](message);
+			this.$parent.pushLeft();
 			this.$destroy(true);
 		},
 

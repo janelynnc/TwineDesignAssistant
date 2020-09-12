@@ -16,6 +16,7 @@ const {
 	updatePassage
 } =
 	require('../../data/actions/passage');
+const storyEditView = require('..');
 
 require('./index.less');
 
@@ -190,7 +191,8 @@ module.exports = Vue.extend({
 				data: {
 					passageId: this.passage.id,
 					storyId: this.parentStory.id,
-					origin: this.$el
+					origin: this.$el,
+					storyEditView: this.$parent
 				},
 				store: this.$store,
 				storyFormat: {

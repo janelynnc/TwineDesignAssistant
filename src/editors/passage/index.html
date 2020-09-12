@@ -4,6 +4,10 @@
 	</span>
 
 	<tag-editor :passage="passage" :story-id="storyId"></tag-editor>
+	<button class="subtle" @click="addStoryWindow" title="{{ 'Add Story Tab' | say }}">
+		<i class="fa fa-plus fa-lg"></i>
+		{{ 'Story Tab!!' | say }}
+	</button>
 
 	<p class="error" v-if="!userPassageNameValid">
 		{{ 'A passage already exists with this name.' | say }}

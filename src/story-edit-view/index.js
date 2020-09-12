@@ -36,7 +36,7 @@ module.exports = Vue.extend({
 		The window's width and height. Our resize() method keeps this in sync
 		with the DOM.
 		*/
-
+		parent: this,
 		winWidth: window.innerWidth,
 		winHeight: window.innerHeight,
 
