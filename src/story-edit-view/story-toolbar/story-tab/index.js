@@ -46,7 +46,7 @@ module.exports = Vue.extend({
                 const matches = script.matchAll(patterns);
                 const lookupTags = [
                     {open:new RegExp(/\<\w*?\>/),close:new RegExp(/\<\/.+\>/),type:"Html"},
-                    {open:new RegExp(/\[\[/),close:new RegExp(/\]\]/),type:"Macro"},
+                    {open:new RegExp(/\[\[/),close:new RegExp(/\]\]/),type:"Link"},
                     {open:new RegExp(/\([\w]*:/),close:new RegExp(/\)/),type:"Macro"},
                     {open:new RegExp(/\[/),close:new RegExp(/\]/),type:"Body"}
 
@@ -61,6 +61,11 @@ module.exports = Vue.extend({
                     //Check if the match is has something other than whitespace
                     if(match[0].replace(/\s/g, '').length>0){
                         for(const tag of lookupTags){
+                            if(tag.close.test(match[0])){
+                                bracketCount--;
+                                console.log(`Close ${match[0]}`)
+                                break;
+                            }
                             if(tag.open.test(match[0])){
                                 if(bracketCount<=0){
                                     start=match.index;
@@ -70,13 +75,8 @@ module.exports = Vue.extend({
                                 console.log(`Open ${match[0]}`)
                                 break;
                             }
-                            if(tag.close.test(match[0])){
-                                bracketCount--;
-                                console.log(`Close ${match[0]}`)
-                                break;
-                            }
+
                         }
-                        console.log(bracketCount);
                         if(bracketCount <= 0){
                             end = match.index + match[0].length;
                             if(start-previousEnd>1 ){
@@ -85,6 +85,7 @@ module.exports = Vue.extend({
                                     type: "Content"
                                 });
                             }
+                            console.log(currentPattern[currentPattern.length-1]);
                             if(currentPattern[currentPattern.length-1] == "Body"){
                                 console.log(`Body ${script.substring(start,end)}`)
                                 passage.tokens[passage.tokens.length-1].script +=script.substring(start,end);
@@ -94,6 +95,7 @@ module.exports = Vue.extend({
                                     script: script.substring(start,end), 
                                     type: currentPattern.pop()
                                 });
+                                console.log(passage.tokens);
                             }
                             previousEnd = end;
                         }
@@ -114,7 +116,7 @@ module.exports = Vue.extend({
                 })
             })
 
-            return JSON.stringify(tokens,null,4);
+            return tokens;
 
         }
     },
