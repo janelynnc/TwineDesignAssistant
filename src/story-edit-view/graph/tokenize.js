@@ -79,6 +79,7 @@ module.exports = (story) => {
         }
         //Next we'll take these tokens and turn them in passages
         tokens.push({
+            "id": passage.id,
             "passage":passage.name,
             "tokens": passage.tokens
         })

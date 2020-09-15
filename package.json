@@ -31,6 +31,8 @@
 		"codemirror": "^5.5.0",
 		"core-js": "^2.4.0",
 		"d3": "^3.5.17",
+		"dagre": "^0.8.5",
+		"dagre-d3": "^0.6.4",
 		"fastclick": "^1.0.6",
 		"font-awesome": "^4.3.0",
 		"fs-extra": "^7.0.1",

@@ -1,3 +1,10 @@
-<pre>
+<pre v-if= "mode == 'GraphData'">
+    {{graph}}
+</pre>
+<pre v-if= "mode == 'Tokens'">
+    {{tokens}}
+</pre>
+<pre v-if= "mode == 'Nodes'">
     {{nodes}}
 </pre>
+<svg id="svg-canvas" width=960 height=600>{{draw}}</svg>

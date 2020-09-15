@@ -37,7 +37,7 @@ module.exports = (tokens) => {
                 matchs = htmlPattern.exec(token.script)
                 type = matchs || matchs[0];
                 node = {
-                    "type": type,
+                    "type": "Html",
                     "script": token.script
                 }
             }else if(token.type == "Link"){
