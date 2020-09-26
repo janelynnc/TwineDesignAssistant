@@ -8,13 +8,6 @@ e.g. those pointing to other passages in a story, not to an external web site.
 /* The top level regular expression to catch links -- i.e. [[link]]. */
 const extractLinkTags = (text) => text.match(/\[\[.*?\]\]/g) || [];
 
-/* Links _not_ starting with a protocol, e.g. abcd://. */
-const internalLinks = link => !/^\w+:\/\/\/?\w/i.test(link);
-
-const nonEmptyLinks = link => link !== '';
-
-/* Identifies values that appear only once in the array. */
-const uniques = (v, i, a) => a.indexOf(v) === i;
 
 /* Setter is the second [] block if exists. */
 const removeSetters = link => {
@@ -82,9 +75,15 @@ module.exports = (text, internalOnly) => {
 	*/
 
 	let result = extractLinkTags(text)
-		.map(removeEnclosingBrackets)
-		.map(removeSetters)
-		.map(extractLink)
+	if(result.length==1){
+		result = removeEnclosingBrackets(result[0])
+		result = removeSetters(result);
+		result = extractLink(result)
+	}
 
-	return result[0];
+	return {
+		"type": "passagelink",
+		"target": result.target||null,
+		"display": result.display||null
+	}
 };

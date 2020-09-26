@@ -116,7 +116,7 @@ module.exports = Vue.extend({
             var tokens = tokenize(this.$parent.$parent.story);
             var passages = covertToNode(tokens);
             var data = graphData(passages,story);
-            return JSON.stringify(data,null,4);
+            return JSON.stringify(data.edges,null,4);
         },
         draw: function(){
             //Converts story passages into parsable graphdata

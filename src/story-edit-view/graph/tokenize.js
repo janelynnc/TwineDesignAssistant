@@ -1,4 +1,4 @@
-module.exports = (story) => {
+ module.exports = (story) => {
     var passages = story.passages;
     var tokens = [];
     //Parse the script in each passage and turn the into nodes
@@ -14,7 +14,7 @@ module.exports = (story) => {
         const matches = script.matchAll(patterns);
         const lookupTags = [
             {open:new RegExp(/\<\w*?\>/),close:new RegExp(/\<\/.+\>/),type:"Html"},
-            {open:new RegExp(/\[\[/),close:new RegExp(/\]\]/),type:"Link"},
+            {open:new RegExp(/\[\[/),close:new RegExp(/\]\]/),type:"PassageLink"},
             {open:new RegExp(/\([\w]*:/),close:new RegExp(/\)/),type:"Macro"},
             {open:new RegExp(/\[/),close:new RegExp(/\]/),type:"Body"}
 
@@ -25,45 +25,49 @@ module.exports = (story) => {
         var bracketCount = 0;
         var currentPattern = [];
         for (const match of matches) {
-            console.log(`Found ${match[0]} start=${match.index} end=${match.index + match[0].length}.`);
+            //console.log(`Found ${match[0]} start=${match.index} end=${match.index + match[0].length}.`);
             //Check if the match is has something other than whitespace
-            if(match[0].replace(/\s/g, '').length>0){
+            if(match[0].replace(/[\n\r\s]+/g, '').length>0){
                 for(const tag of lookupTags){
-                    if(tag.close.test(match[0])){
-                        bracketCount--;
-                        console.log(`Close ${match[0]}`)
-                        break;
-                    }
+                    console.log(match[0])
                     if(tag.open.test(match[0])){
                         if(bracketCount<=0){
                             start=match.index;
-                            currentPattern.push(tag.type);
+                            currentPattern.push(tag);
                         }
                         bracketCount++;
-                        console.log(`Open ${match[0]}`)
+                        console.log(bracketCount);
+                        break;
+                    }else if(currentPattern.length>0 && currentPattern[currentPattern.length-1].close.test(match[0])){
+                        bracketCount--;
+                        console.log(bracketCount);
                         break;
                     }
 
                 }
                 if(bracketCount <= 0){
                     end = match.index + match[0].length;
-                    if(start-previousEnd>1 ){
+                    
+                    if(currentPattern[currentPattern.length-1] == "Body"){
+                        console.log(script.substring(start,end))
+                        passage.tokens.push({
+                            script: script.substring(start,end), 
+                            type: currentPattern.pop().type
+                        });
+                        
+                    }else if(currentPattern.length>0){
+                        passage.tokens.push({
+                            script: script.substring(start,end), 
+                            type: currentPattern.pop().type
+                        });
+                    }
+
+                    if(start-previousEnd>1){
+                        //console.log(script.substring(previousEnd,end))
                         passage.tokens.push({
                             script: script.substring(previousEnd,start), 
                             type: "Content"
                         });
-                    }
-                    console.log(currentPattern[currentPattern.length-1]);
-                    if(currentPattern[currentPattern.length-1] == "Body"){
-                        console.log(`Body ${script.substring(start,end)}`)
-                        passage.tokens[passage.tokens.length-1].script +=script.substring(start,end);
-                        currentPattern.pop()
-                    }else{
-                        passage.tokens.push({
-                            script: script.substring(start,end), 
-                            type: currentPattern.pop()
-                        });
-                        console.log(passage.tokens);
                     }
                     previousEnd = end;
                 }
@@ -77,6 +81,8 @@ module.exports = (story) => {
                 type: "Content"
             });
         }
+
+        passage.tokens = passage.tokens.filter(token => token.script.trim() != '');
         //Next we'll take these tokens and turn them in passages
         tokens.push({
             "id": passage.id,

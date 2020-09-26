@@ -1,0 +1,589 @@
+[
+    [
+        {
+            "type": "font",
+            "script": "(font:\"Andale Mono\")",
+            "index": "0"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "[Congratulations Bunker Owner 2403. My name is Rudy. I am your personal Artificial Intelligence for this \"Bunk Off\" Bunker from A Very Normal Company! \n\nWhere have you installed me?]",
+                "index": "1"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[Congratulations Bunker Owner 2403. My name is Rudy. I am your personal Artificial Intelligence for this \"Bunk Off\" Bunker from A Very Normal Company! \n\nWhere have you installed me?]",
+            "index": "1"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "2"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "2"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": "In my backyard",
+                "display": "In my backyard",
+                "index": "4"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "passagelink",
+            "target": "In my backyard",
+            "display": "In my backyard",
+            "index": "4"
+        },
+        [
+            {
+                "id": "c5be8388-5341-4f7a-8cc9-177b3baf81e2",
+                "type": "Passage"
+            }
+        ]
+    ],
+    [
+        {
+            "id": "c5be8388-5341-4f7a-8cc9-177b3baf81e2",
+            "type": "Passage"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "5"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "5"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": "In the attic",
+                "display": "In the attic",
+                "index": "7"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "passagelink",
+            "target": "In the attic",
+            "display": "In the attic",
+            "index": "7"
+        },
+        [
+            {
+                "id": "d79f3935-cd2b-4172-aed3-2b610c77e6bb",
+                "type": "Passage"
+            }
+        ]
+    ],
+    [
+        {
+            "id": "d79f3935-cd2b-4172-aed3-2b610c77e6bb",
+            "type": "Passage"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "8"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "8"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": "In a heavily guarded, secret lot at an undisclosed location.",
+                "display": "In a heavily guarded, secret lot at an undisclosed location.",
+                "index": "10"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "passagelink",
+            "target": "In a heavily guarded, secret lot at an undisclosed location.",
+            "display": "In a heavily guarded, secret lot at an undisclosed location.",
+            "index": "10"
+        },
+        [
+            {
+                "id": "ea3dc3cd-ce10-40dc-b5aa-cc52571a2707",
+                "type": "Passage"
+            }
+        ]
+    ],
+    [
+        {
+            "id": "ea3dc3cd-ce10-40dc-b5aa-cc52571a2707",
+            "type": "Passage"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "11"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "11"
+        },
+        [
+            {
+                "type": "set",
+                "script": "(set: $Bunnings to true)",
+                "index": "12"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "set",
+            "script": "(set: $Bunnings to true)",
+            "index": "12"
+        },
+        [
+            {
+                "type": "set",
+                "script": "(set: $Aldi to true)",
+                "index": "13"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "set",
+            "script": "(set: $Aldi to true)",
+            "index": "13"
+        },
+        [
+            {
+                "type": "set",
+                "script": "(set: $Highpoint to true)",
+                "index": "14"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "set",
+            "script": "(set: $Highpoint to true)",
+            "index": "14"
+        },
+        [
+            {
+                "type": "font",
+                "script": "(font:\"Andale Mono\")",
+                "index": "15"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "font",
+            "script": "(font:\"Andale Mono\")",
+            "index": "15"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "[My datalogs suggest that perhaps this is how you say ‘overkill’, but I am pleased you are taking this seriously.]",
+                "index": "16"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[My datalogs suggest that perhaps this is how you say ‘overkill’, but I am pleased you are taking this seriously.]",
+            "index": "16"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "17"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "17"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": "Let's proceed.",
+                "display": "Let's proceed.",
+                "index": "19"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "passagelink",
+            "target": "Let's proceed.",
+            "display": "Let's proceed.",
+            "index": "19"
+        },
+        [
+            {
+                "id": "c7b67b88-6c5d-41ac-9a4b-f00a07dc8ad5",
+                "type": "Passage"
+            }
+        ]
+    ],
+    [
+        {
+            "id": "c7b67b88-6c5d-41ac-9a4b-f00a07dc8ad5",
+            "type": "Passage"
+        },
+        [
+            {
+                "type": "font",
+                "script": "(font:\"Andale Mono\")",
+                "index": "20"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "font",
+            "script": "(font:\"Andale Mono\")",
+            "index": "20"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "[All \"Bunk Off\" Bunkers are fully operational when installed and I come stocked with all the essential materials you need to survive for six months after (or during)",
+                "index": "21"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[All \"Bunk Off\" Bunkers are fully operational when installed and I come stocked with all the essential materials you need to survive for six months after (or during)",
+            "index": "21"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "[All \"Bunk Off\" Bunkers are fully operational when installed and I come stocked with all the essential materials you need to survive for six months after (or during) any major disaster. Would you like the tour?]",
+                "index": "22"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[All \"Bunk Off\" Bunkers are fully operational when installed and I come stocked with all the essential materials you need to survive for six months after (or during) any major disaster. Would you like the tour?]",
+            "index": "22"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "23"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "23"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": null,
+                "display": null,
+                "index": "24"
+            },
+            {
+                "type": "Content",
+                "script": "[[Yes please.]]",
+                "index": "25"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[[Yes please.]]",
+            "index": "25"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\nNo, ",
+                "index": "26"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\nNo, ",
+            "index": "26"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": null,
+                "display": null,
+                "index": "27"
+            },
+            {
+                "type": "Content",
+                "script": "[[thank you.]]",
+                "index": "28"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[[thank you.]]",
+            "index": "28"
+        },
+        [
+            {
+                "type": "font",
+                "script": "(font:\"Andale Mono\")",
+                "index": "29"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "font",
+            "script": "(font:\"Andale Mono\")",
+            "index": "29"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "[I… I am made out of concrete, Bunker Owner 2403. I weigh over three tonnes.  My concern for the structural integrity of this building has now skyrocketed.]",
+                "index": "30"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[I… I am made out of concrete, Bunker Owner 2403. I weigh over three tonnes.  My concern for the structural integrity of this building has now skyrocketed.]",
+            "index": "30"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "31"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "31"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": "It'll be fine. ",
+                "display": "It'll be fine. ",
+                "index": "33"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "passagelink",
+            "target": "It'll be fine. ",
+            "display": "It'll be fine. ",
+            "index": "33"
+        },
+        [
+            {
+                "id": "3ad87975-b43a-4733-88a0-f73439a478a1",
+                "type": "Passage"
+            }
+        ]
+    ],
+    [
+        {
+            "id": "3ad87975-b43a-4733-88a0-f73439a478a1",
+            "type": "Passage"
+        },
+        [
+            {
+                "type": "font",
+                "script": "(font:\"Andale Mono\")",
+                "index": "34"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "font",
+            "script": "(font:\"Andale Mono\")",
+            "index": "34"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "[I am an incoporeal being who will not feel pain when this bunker crushes your house like a proverbial stubby can against the forehead of the planet, but sure.]",
+                "index": "35"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[I am an incoporeal being who will not feel pain when this bunker crushes your house like a proverbial stubby can against the forehead of the planet, but sure.]",
+            "index": "35"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "36"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "36"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": "Let's proceed.",
+                "display": "Let's proceed.",
+                "index": "38"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "passagelink",
+            "target": "Let's proceed.",
+            "display": "Let's proceed.",
+            "index": "38"
+        },
+        [
+            {
+                "id": "c7b67b88-6c5d-41ac-9a4b-f00a07dc8ad5",
+                "type": "Passage"
+            }
+        ]
+    ],
+    [
+        {
+            "id": "c7b67b88-6c5d-41ac-9a4b-f00a07dc8ad5",
+            "type": "Passage"
+        },
+        [
+            {
+                "type": "font",
+                "script": "(font:\"Andale Mono\")",
+                "index": "39"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "font",
+            "script": "(font:\"Andale Mono\")",
+            "index": "39"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "[Excellent. I am sure the neighbours have not noticed the large amount of displaced earth or the suspicious mound appearing where once was lawn.]",
+                "index": "40"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "[Excellent. I am sure the neighbours have not noticed the large amount of displaced earth or the suspicious mound appearing where once was lawn.]",
+            "index": "40"
+        },
+        [
+            {
+                "type": "Content",
+                "script": "\n\n",
+                "index": "41"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "Content",
+            "script": "\n\n",
+            "index": "41"
+        },
+        [
+            {
+                "type": "passagelink",
+                "target": "Let's proceed.",
+                "display": "Let's proceed.",
+                "index": "43"
+            }
+        ]
+    ],
+    [
+        {
+            "type": "passagelink",
+            "target": "Let's proceed.",
+            "display": "Let's proceed.",
+            "index": "43"
+        },
+        [
+            {
+                "id": "c7b67b88-6c5d-41ac-9a4b-f00a07dc8ad5",
+                "type": "Passage"
+            }
+        ]
+    ]
+]
