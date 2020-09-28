@@ -4,6 +4,7 @@ Draws connector lines between passages.
 
 const Vue = require('vue');
 const d3 = require('d3');
+const zoom = require('d3-zoom');
 const dagre = require('dagre');
 const dagreD3 = require('dagre-d3')
 const linkParser = require('./link-parser');
@@ -66,6 +67,12 @@ module.exports = Vue.extend({
                 }
             });
 
+            var svg = d3.select("#graph"),
+            svgGroup = svg.append("g");
+            // Set up zoom support
+           
+
+            console.log(svgGroup)
             
             // Create the renderer
             var render = new dagreD3.render();
@@ -73,6 +80,12 @@ module.exports = Vue.extend({
             // Run the renderer. This is what draws the final graph.
             render(d3.select("#graph"), g);
 
+            svg.attr('width', g.graph().width + 40);
+            svg.attr('height', g.graph().height * 1.1 + 100);
+            svg.attr('viewBox', `0 0 ${g.graph().width} ${g.graph().height}`);
+            svg.call(d3.zoom().on("zoom", function () {
+                svg.attr("transform", d3.event.transform)
+             }))
         }
     },
 	components: {
