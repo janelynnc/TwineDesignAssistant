@@ -1,10 +1,17 @@
 //Finds the most recent non-link node added to the graph
-function findValidRecentNode(stack){
+function findValidRecentNode(stack,node,nodesInPassage){
     if(stack.length == 0){
         return null;
     }
     for(var i = stack.length-1; i>=0; i--){
-        if(stack[i].type != 'passagelink' ){
+        var isConditionalBody = stack[i].type == 'body'
+        if(isConditionalBody){
+            console.log(stack[i]);
+        }
+        if(stack[i].parent != node.parent){
+            continue;
+        }
+        if(stack[i].type != 'passagelink' && stack[i].type != 'conditional'){
             return stack[i];
         }
     }
@@ -16,6 +23,7 @@ function createPassageNode(graph,target){
         "name":target.passage,
         "id": target.id,
         "type": "Passage",
+        "index": target.id
     }
     var targetNode = passageNode;
     var foundNodeAt = graph.nodes.findIndex((elem) => elem == passageNode);
@@ -26,6 +34,26 @@ function createPassageNode(graph,target){
         target.stack = [passageNode];
     }
     return targetNode;
+}
+
+function setParent(graph,parent,node){
+
+    if(!graph.edges.has(parent)){
+        graph.edges.set(parent,new Set([node]));
+    }else{
+        //For macros nested in a body, the node should be linked to the the previous child 
+        if(parent.type == "body"){
+            var children = graph.edges.get(parent)
+            for(child of children.values())
+            {
+                if(child.parent == parent && child.type != 'passageLink'){
+                    parent = child;
+                    break;
+                }
+            };
+        }
+        graph.edges.get(parent).add(node);
+    }
 }
 
 module.exports = (passages, story) => {
@@ -46,13 +74,12 @@ module.exports = (passages, story) => {
         var currentPassage = passagesToProcess.pop() 
         var count = 0;
         for(node of currentPassage.nodes){
-            var parent = findValidRecentNode(currentPassage.stack,count);
+            var parent = currentPassage.nodes.find((entry)=> entry.index == node.parent);
+            if(parent==null){
+                parent = findValidRecentNode(currentPassage.stack,node,currentPassage.nodes);
+            }
             if(parent != null){
-                if(!graph.edges.has(parent)){
-                    graph.edges.set(parent,new Set([node]));
-                }else{
-                    graph.edges.get(parent).add(node);
-                }
+                setParent(graph,parent,node);
             }
 
             if(node.type == 'passagelink' || node.type == 'link-goto'){
@@ -72,7 +99,6 @@ module.exports = (passages, story) => {
                     console.log(e)
                 }
             }
-            node.index = graph.nodes.length.toString();
             graph.nodes.push(node);
             currentPassage.stack.push(node);
             count++;

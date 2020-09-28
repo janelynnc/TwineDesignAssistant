@@ -37,7 +37,7 @@ module.exports = Vue.extend({
         } );
         //Ask the story editor to offset everything in the x direction by
         //window.innerWidth*.25 where wndow.innerWidth is the browser width
-        this.parent.$dispatch('passage-drag-complete',window.innerWidth*.25,0)
+        //this.parent.$dispatch('passage-drag-complete',window.innerWidth*.25,0)
     },
 
     destroyed() {
@@ -46,6 +46,9 @@ module.exports = Vue.extend({
     },
 
 	methods: {
+        draw() {
+            this.mode = "Draw";
+        },
         graphData() {
             this.mode = "GraphData";
         },
@@ -63,7 +66,7 @@ module.exports = Vue.extend({
             selectPassages(this.store,this.storyId,()=>{
                 return true;
             } );
-            this.parent.$dispatch('passage-drag-complete',window.innerWidth*-.25,0)
+            //this.parent.$dispatch('passage-drag-complete',window.innerWidth*-.25,0)
         }
     }
 });

@@ -1,5 +1,5 @@
 const linkParser = require('./link-parser');
-
+const getOnlyArg = new RegExp(/(?<=:[\s]+)(.*)(?=\)$)/g);
 //So we're going need a modifed version of solving 
 // the balanced parenthesis problem https://medium.com/@paulrohan/parenthesis-matching-problem-in-javascript-the-hacking-school-hyd-7d7708278911
 // Also this problem is pretty similiar to what we need https://www.geeksforgeeks.org/find-maximum-depth-nested-parenthesis-string/
@@ -45,42 +45,42 @@ module.exports = (tokens) => {
     //from that macro
     var managedMacros = new Map([
         ["mouseout-goto", function(script){
-            var values = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+            var values = find(script,new RegExp(/(?<=:[\s]+)(.*)(?=\)$)/g))
             if(values != null){
                 values = values.split(",");
             }else{
                 return;
             }
             return {
-                type:"link-goto",
+                type:"passageLink",
                 display: values[0],
                 target: values[1],
                 input: "mouseout"
             }
         }],
         ["mouseover-goto", function(script){
-            var values = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+            var values = find(script,getOnlyArg)
             if(values != null){
                 values = values.split(",");
             }else{
                 return;
             }
             return {
-                type:"link-goto",
+                type:"passageLink",
                 display: values[0],
                 target: values[1],
                 input: "mouseover"
             }
         }],
         ["click-goto", function(script){
-            var values = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+            var values = find(script,getOnlyArg)
             if(values != null){
                 values = values.split(",");
             }else{
                 return;
             }
             return {
-                type:"link-goto",
+                type:"passageLink",
                 display: values[0],
                 target: values[1],
                 input: "click"
@@ -89,27 +89,27 @@ module.exports = (tokens) => {
         ["mouseout-append", function(script){
             return {
                 type:"link-append",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseout"
             }
         }],
         ["mouseout-replace", function(script){
             return {
                 type:"link-replace",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseout"
             }
         }],
         ["show", function(script){
             return {
                 type:"show",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
             }
         }],
         ["live", function(script){
             return {
                 type:"live",
-                duration: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                duration: find(script,getOnlyArg),
             }
         }],
         ["stop", function(_script){
@@ -119,7 +119,7 @@ module.exports = (tokens) => {
             return{
                 type:"conditional",
                 condition: "event",
-                value: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+                value: find(script,getOnlyArg)
             } 
         }],
         ["more", function(_script){
@@ -131,13 +131,13 @@ module.exports = (tokens) => {
         ["unless", function(script){
             return{
                 type:"conditional",
-                condition: "unless "+ find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+                condition: "unless "+ find(script,getOnlyArg)
             }
         }],
         ["else-if", function(script){
             return{
                 type:"conditional",
-                condition: "else-if "+ find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+                condition: "else-if "+ find(script,getOnlyArg)
             }
         }],
         ["else", function(_script){
@@ -149,11 +149,11 @@ module.exports = (tokens) => {
         ["if", function(script){
             return{
                 type:"conditional",
-                condition: "if "+ find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+                condition: "if "+ find(script,getOnlyArg)
             }
         }],
         ["prompt", function(script){
-            var values = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+            var values = find(script,getOnlyArg)
             if(values != null){
                 values = values.split(",");
             }
@@ -165,7 +165,7 @@ module.exports = (tokens) => {
             }
         }],
         ["confirm", function(script){
-            var values = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+            var values = find(script,getOnlyArg)
             if(values != null){
                 values = values.split(",");
             }
@@ -177,7 +177,7 @@ module.exports = (tokens) => {
             }
         }],
         ["alert", function(script){
-            var values = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
+            var values = find(script,getOnlyArg)
             if(values != null){
                 values = values.split(",");
             }
@@ -190,78 +190,64 @@ module.exports = (tokens) => {
         ["mouseout-prepend", function(script){
             return {
                 type:"link-prepend",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseout"
             }
         }],
         ["mouseout-append", function(script){
             return {
                 type:"link-append",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseout"
             }
         }],
         ["mouseout-replace", function(script){
             return {
                 type:"link-replace",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseout"
             }
         }],
         ["mouseover-prepend", function(script){
             return {
                 type:"link-prepend",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseover"
             }
         }],
         ["mouseover-append", function(script){
             return {
                 type:"link-append",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseover"
             }
         }],
         ["mouseover-replace", function(script){
             return {
                 type:"link-replace",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "mouseover"
             }
         }],
         ["click-prepend", function(script){
             return {
                 type:"link-prepend",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "click"
             }
         }],
         ["click-append", function(script){
             return {
                 type:"link-append",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "click"
             }
         }],
         ["click-replace", function(script){
             return {
                 type:"link-replace",
-                target: find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                target: find(script,getOnlyArg),
                 input: "click"
-            }
-        }],
-        ["t8n", function(script){
-            var value = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
-            return {
-                type:"transition",
-                value: value
-            }
-        }],
-        ["transition", function(script){
-            var value = find(script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g))
-            return {
-                type:"transition",
-                value: value
             }
         }],
         ["move", function(script){
@@ -292,7 +278,7 @@ module.exports = (tokens) => {
             }
         }],
         ["font", function(script){
-            var font = find(script,new RegExp(/(?<=font:)(.*)(?=\))/g));
+            var font = find(script,getOnlyArg);
             return {
                 type:"font",
                 value:font,
@@ -303,7 +289,6 @@ module.exports = (tokens) => {
     //This pattern matchs name of a macro command for example, in (set:),
     //The word set would be matched
     var macroPattern = new RegExp(/(\w*)(?=:)/);
-    var htmlPattern = new RegExp(/^\S*/);
     var type,matchs;
     for(const passage of nodes){
         passage.nodes = [];
@@ -320,7 +305,7 @@ module.exports = (tokens) => {
                     //For most tokens the value is just its first arguement
                     node = {
                         "type": type,
-                        "value": find(token.script,new RegExp(/(?<=:[\s]+)(\S*)(?=\)$)/g)),
+                        "value": find(token.script,getOnlyArg),
                         "script": token.script
                     }
                 }
@@ -339,10 +324,21 @@ module.exports = (tokens) => {
                 node = managedMacros.get(type.toLowerCase())(token.script);
             }else{
                 node = {
-                    "type": "Content",
+                    "type": token.type.toLowerCase(),
                     "script": token.script
                 }
             }
+            node.index = token.index;
+            node.parent = token.parent;
+            if(node.type == "body"){
+                for(var i = passage.nodes.length-1;i>=0;i--){
+                    if(passage.nodes[i].parent == node.parent && passage.nodes[i].type == "conditional"){
+                        node.parent = passage.nodes[i].index;
+                        break;
+                    }
+                }
+            }
+            node.depth = token.depth;
             passage.nodes.push(node);
         }
         delete passage.tokens;

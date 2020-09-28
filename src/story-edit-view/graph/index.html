@@ -7,3 +7,7 @@
 <pre v-if= "mode == 'Nodes'">
     {{nodes}}
 </pre>
+<div v-if= "mode == 'Draw'">
+    {{draw}}
+</div>
+<svg id="graph" width=500 height=1000 viewBox="0 0 500 1000"></svg>
