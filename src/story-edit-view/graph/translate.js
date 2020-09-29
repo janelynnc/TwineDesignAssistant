@@ -1,33 +1,5 @@
 const linkParser = require('./link-parser');
 const getOnlyArg = new RegExp(/(?<=:[\s]+)(.*)(?=\)$)/g);
-//So we're going need a modifed version of solving 
-// the balanced parenthesis problem https://medium.com/@paulrohan/parenthesis-matching-problem-in-javascript-the-hacking-school-hyd-7d7708278911
-// Also this problem is pretty similiar to what we need https://www.geeksforgeeks.org/find-maximum-depth-nested-parenthesis-string/
-function extractNestedChildren(script){
-   //The stack wiil hold the opening tags
-   const stack = []
-    //This pattern matchs any opening and closing tags for html, links, or a macro
-    //For a more detailed explanation and visualization visit
-    //regexr.com/5bjtm
-    var patterns = new RegExp(/\<.*?\>|\<\/.+\>|\[\[|\]\]|\([\w]*:|\)|\(|\[|\]/g) 
-    //Split the script into an array of opening and closing tags this helps us deal with html tags
-    //where we have to read by word and not by character
-    const matches = script.matchAll(patterns);
-    const lookupTags = [
-        {open:new RegExp(/\<\w*?\>/),close:new RegExp(/\<\/.+\>/),type:"Html"},
-        {open:new RegExp(/\[\[/),close:new RegExp(/\]\]/),type:"PassageLink"},
-        {open:new RegExp(/\([\w]*:/),close:new RegExp(/\)/),type:"Macro"},
-        {open:new RegExp(/\[/),close:new RegExp(/\]/),type:"Body"}
-    ];
-    for(const match of matches){
-        //ignore whitespace
-        if(match[0].replace(/\s/g, '').length<=0){
-            continue;
-        }
-
-    }
-
-}
 
 function find(script,regex){
     var result  = script.match(regex);
@@ -40,7 +12,9 @@ function find(script,regex){
 
 module.exports = (tokens) => {
     var nodes = tokens;
-    const htmlParser = new DOMParser();
+    const htmlParser = new DOMParser();//We'll use this javascript built in html parser to translate html for us
+
+
     //Map each macro to a function that extracts all the important info
     //from that macro
     var managedMacros = new Map([
@@ -286,14 +260,21 @@ module.exports = (tokens) => {
         }],
         ["passagelink",function(script){ return linkParser(script);}]
     ]);
+
+
+    //--------------------------------------------------------------------------------------------------------
+    //The main process start here
     //This pattern matchs name of a macro command for example, in (set:),
     //The word set would be matched
     var macroPattern = new RegExp(/(\w*)(?=:)/);
     var type,matchs;
+    //loop through all the passages
     for(const passage of nodes){
         passage.nodes = [];
+        //for every token in the passage
         for(const token of passage.tokens){
             var node;
+            //For macros lookup the translation in our dictionary
             if(token.type == 'Macro'){
                 matchs = macroPattern.exec(token.script);
                 if(matchs){
@@ -301,7 +282,7 @@ module.exports = (tokens) => {
                 }
                 if(managedMacros.has(type)){
                     node = managedMacros.get(type)(token.script);
-                }else{
+                }else{//Handle the any macros that aren't in our dictionary
                     //For most tokens the value is just its first arguement
                     node = {
                         "type": type,
@@ -309,9 +290,8 @@ module.exports = (tokens) => {
                         "script": token.script
                     }
                 }
-            }else if(token.type == "Html"){
+            }else if(token.type == "Html"){ // To translate html we rely on the javascript built in parser
                 const html = htmlParser.parseFromString(token.script, "text/html");
-                console.log(html.body.firstElementChild.tagName)
                 node = {
                     "type": "Html",
                     "tag": html.body.firstElementChild.tagName,
@@ -319,10 +299,10 @@ module.exports = (tokens) => {
                     "attributes": html.body.firstElementChild.attributes,
                     "innerText": html.body.firstElementChild.innerHTML
                 }
-            }else if(token.type == "PassageLink"){
+            }else if(token.type == "PassageLink"){ 
                 type = token.type;
                 node = managedMacros.get(type.toLowerCase())(token.script);
-            }else{
+            }else{ //this handle body tokens
                 node = {
                     "type": token.type.toLowerCase(),
                     "script": token.script
@@ -330,6 +310,8 @@ module.exports = (tokens) => {
             }
             node.index = token.index;
             node.parent = token.parent;
+            //if the token is a body we want to find it's matching parent
+            //the parent is usually a condional macro
             if(node.type == "body"){
                 for(var i = passage.nodes.length-1;i>=0;i--){
                     if(passage.nodes[i].parent == node.parent && passage.nodes[i].type == "conditional"){
@@ -338,9 +320,10 @@ module.exports = (tokens) => {
                     }
                 }
             }
-            node.depth = token.depth;
+            node.depth = token.depth; //Depth shows how deeply a macro is nested
             passage.nodes.push(node);
         }
+        //remove the tokens to clear out some memory
         delete passage.tokens;
     }
     return nodes;
